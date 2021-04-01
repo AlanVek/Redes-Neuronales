@@ -1,0 +1,53 @@
+1- TF
+############################################################################################################################################################
+
+- Cuenta la cantidad de veces que aparece cada palabra en cada documento.
+- Si está prendido sublinear_tf, reemplaza esa cantidad por 1 + log(cantidad).
+- Divide a ese vector por la cantidad total de palabras distintas en el documento.
+
+Ejemplo: 'hola chau hola malo bueno chau'
+
+feature_names: ['bueno', 'chau', 'hola', 'malo']
+Sin sublinear_tf -> TF: [1/6, 1/3, 1/3, 1/6]
+Con sublinear_tf -> TF: [1/6, (1 + log(2))/6 , (1 + log(2))/6 , 1/6])
+
+TF es una matriz de altura igual a la cantidad de documentos y de ancho igual a la cantidad total de palabras distintas. Las columnas se ordenan según el 
+orden alfabético de las palabras, y las filas se ordenan según la posición del documento en el input.
+
+
+2- IDF
+############################################################################################################################################################
+
+- Cuenta en cuántos documentos aparece la palabra.
+- Cuenta la cantidad de documentos.
+- Si está prendido smooth_idf, hace 1 + log((1 + D) / (1 + d))
+- Si está apagado smooth_idf, hace 1 + log(D/d).
+
+Ejemplo: ['hola chau hola malo bueno chau', 'hola chau aburrido']
+
+feature_names: ['aburrido', 'bueno', 'chau', 'hola', 'malo']
+
+Sin smooth_idf -> IDF = [1 + log(2), 1 + log(2), 1, 1, 1 + log(2)]
+Con smooth_idf -> IDF = [1 + log(3/2), 1 + log(3/2), 1, 1, 1 + log(3/2)]
+
+IDF es un vector de largo igual a la cantidad total de palabras distintas. Se ordena de según el orden alfabético de las palabras.
+
+
+3- Resultado final
+############################################################################################################################################################
+
+- Si está prendido use_idf, obtiene TF * IDF
+- Si está apagado use_idf, se queda sólo con TF.
+
+Devuelve el resultado obtenido normalizado a norma 1 o 2, dependiendo de cuál esté prendida.
+
+############################################################################################################################################################
+
+¿Qué representa TF-IDF?
+
+TF: (Proporcional a) la frecuencia de cada palabra en cada documento. TF-IDF es directamente proporcional a TF porque mayor TF implica un mayor peso dentro 
+del documento, con lo cual su puntaje deberá ser más importante.
+
+IDF: Proporcional a la frecuencia inversa de cada palabra entre documentos. TF-IDF es inversamente proporcional a la frecuencia de cada palabra entre 
+documentos porque si la palabra aparece en más documentos, entonces no será tan representativa de alguno de ellos, con lo cual su puntaje deberá ser menos 
+importante.

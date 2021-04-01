@@ -28,13 +28,17 @@ train = []
 test = []
 
 i = 1
-tot = len(twenty_train['data'])
+tot = twenty_train['data'].size
 for news in twenty_train['data']:
     print(f'{i} of {tot}')
     i += 1
     train.append(' '.join(tokenizer(news)))
 
+i = 1
+tot = twenty_test['data'].size
 for news in twenty_test['data']:
+    print(f'{i} of {tot}')
+    i += 1
     test.append(' '.join(tokenizer(news)))
 
 with open('test_data.txt', 'wt') as file:

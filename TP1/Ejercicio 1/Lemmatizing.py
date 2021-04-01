@@ -42,7 +42,7 @@ for news in twenty_test['data']:
     test.append(' '.join(tokenizer(news)))
 
 with open('test_data.txt', 'wt') as file:
-    for news in test: file.write(news + '\n')
+    file.write('\n'.join(test))
 
 with open('train_data.txt', 'wt') as file:
-    for news in train: file.write(news + '\n')
+    file.write('\n'.join(train))
